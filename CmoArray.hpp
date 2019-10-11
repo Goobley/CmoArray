@@ -96,8 +96,6 @@ struct Array1Own
     {}
     Array1Own(T val, size_t size) : data(size, val), Ndim(1), dim0(size)
     {}
-    Array1Own(Array1NonOwn<T> other) : Ndim(other.Ndim), dim0(other.dim0), data(other.data, other.data + other.dim0)
-    {}
     Array1Own(const Array1NonOwn<T>& other) : Ndim(other.Ndim), dim0(other.dim0), data(other.data, other.data + other.dim0)
     {}
     Array1Own(const Array1Own& other) = default;
@@ -267,8 +265,6 @@ struct Array2Own
     Array2Own(size_t size1, size_t size2) : data(size1*size2), Ndim(2), dim{size1, size2}
     {}
     Array2Own(T val, size_t size1, size_t size2) : data(size1*size2, val), Ndim(2), dim{size1, size2}
-    {}
-    Array2Own(Array2NonOwn<T> other) : Ndim(other.Ndim), dim(other.dim), data(other.data, other.data+other.dim0)
     {}
     Array2Own(const Array2NonOwn<T>& other) : Ndim(other.Ndim), dim(other.dim), data(other.data, other.data+other.dim0)
     {}
@@ -471,10 +467,7 @@ struct Array3Own
     {}
     Array3Own(T val, size_t dim0, size_t dim1, size_t dim2) : data(dim0*dim1*dim2, val), Ndim(3), dim{dim0, dim1, dim2}, dimProd{dim1*dim2, dim2}
     {}
-    Array3Own(Array3NonOwn<T> other) : Ndim(other.ndim), dim(other.dim), dimProd(other.dimProd), 
-                                       data(other.data, other.data+other.dim[0]*other.dim[1]*other.dim[2])
-    {}
-    Array3Own(const Array3NonOwn<T>& other) : Ndim(other.ndim), dim(other.dim), dimProd(other.dimProd), 
+    Array3Own(const Array3NonOwn<T>& other) : Ndim(other.Ndim), dim(other.dim), dimProd(other.dimProd), 
                                               data(other.data, other.data+other.dim[0]*other.dim[1]*other.dim[2])
     {}
     Array3Own(const Array3Own& other) = default;
@@ -700,9 +693,6 @@ struct Array4Own
     {}
     Array4Own(T val, size_t dim0, size_t dim1, size_t dim2, size_t dim3) : data(dim0*dim1*dim2*dim3, val), Ndim(4), dim{dim0, dim1, dim2, dim3}, 
                                                                               dimProd{dim1*dim2*dim3, dim2*dim3, dim3}
-    {}
-    Array4Own(Array4NonOwn<T> other) : data(other.data, other.data+other.dim0*other.dim1*other.dim2*other.dim3), 
-                                       Ndim(other.Ndim), dim(other.dim), dimProd(other.dimProd)
     {}
     Array4Own(const Array4NonOwn<T>& other) : data(other.data, other.data+other.dim0*other.dim1*other.dim2*other.dim3), 
                                               Ndim(other.Ndim), dim(other.dim), dimProd(other.dimProd)
@@ -949,9 +939,6 @@ struct Array5Own
     {}
     Array5Own(T val, size_t d0, size_t d1, size_t d2, size_t d3, size_t d4) : data(d0*d1*d2*d3*d4, val), Ndim(5), dim{d0,d1,d2,d3,d4}, 
                                                                               dimProd{d1*d2*d3*d4, d2*d3*d4, d3*d4, d4}
-    {}
-    Array5Own(Array5NonOwn<T> other) : data(other.data, other.data+other.dim[0]*other.dimProd[0]), Ndim(other.Ndim), 
-                                       dim(other.dim), dimProd(other.dimProd)
     {}
     Array5Own(const Array5NonOwn<T>& other) : data(other.data, other.data+other.dim[0]*other.dimProd[0]), Ndim(other.Ndim), 
                                               dim(other.dim), dimProd(other.dimProd)
